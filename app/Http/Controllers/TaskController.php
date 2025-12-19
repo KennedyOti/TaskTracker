@@ -29,7 +29,7 @@ class TaskController extends Controller
             ->filterByPriority($filters['priority']);
 
         // Order by created_at descending for better UX (newest first)
-        $tasks = $query->orderBy('created_at', 'desc')->get();
+        $tasks = $query->orderBy('created_at', 'desc')->paginate(10);
 
         $users = User::all();
 

@@ -43,6 +43,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Status</th>
@@ -55,6 +56,7 @@
                 <tbody>
                     @foreach($tasks as $task)
                         <tr>
+                            <td>{{ $task->id }}</td>
                             <td><a href="{{ route('tasks.show', $task) }}">{{ $task->title }}</a></td>
                             <td>{{ Str::limit($task->description, 50) }}</td>
                             <td>
@@ -81,7 +83,8 @@
                                                 Mark Complete
                                             </button>
                                         </form>
-                                    @else
+                                    @endif
+                                    @if(!$task->assignedUser)
                                         <button type="button" class="btn btn-sm btn-outline-primary" onclick="openAssignModal({{ $task->id }}, '{{ $task->title }}')">Assign</button>
                                     @endif
                                     <button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmDelete({{ $task->id }}, '{{ $task->title }}')">Delete</button>
@@ -95,6 +98,9 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            {{ $tasks->links() }}
         </div>
     @else
         <div class="text-center">
